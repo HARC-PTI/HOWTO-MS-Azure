@@ -1,1 +1,0 @@
-# How to create Azure Virtual Machine to run Machine Learning
