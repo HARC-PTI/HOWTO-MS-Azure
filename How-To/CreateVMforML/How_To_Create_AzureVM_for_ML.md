@@ -1,15 +1,23 @@
-# How to create Azure Virtual Machine to run Machine Learning
+# How to create Azure Virtual Machine (VM) to run Machine Learning
+This how-to document shows creating an Azure VM that can run Tensorflow and Keras. The create VM can run Python codes that uses Tensorflow and Keras. 
 
 ## Step 1. Create GPU enabled virtual machine (VM) from Azure portal
+You need to create a VM first from Azure portal. You can click 'Create Resource' from the Azure portal.
 ![Create Resource Ubuntu 18.04](imgs/create_azure_resource.png)
 
+Then, you can select VM size. This tutorial uses Azure NV6 Promo as VM which uses one Nvidia Tesla M4. You can change to any size as you want and as you need. The list of available GPU VMs are listed here (https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-gpu). 
 ![Select NV6](imgs/select_nv6.png)
 
+When you create the VM, make it sure you open SSH port (22) so that you can access using SSH after the VM is created.
 ![Open SSH port](imgs/open_ssh_port.png)
 
+After selecting all other required options, you can create the VM. The hourly cost of using NV6 Promo VM can vary based on region and date. When I was creating this tutorial, it was 0.396 USD per hour.
 ![Create VM](imgs/create_vm.png)
 
+If you want to use Azure template file to create the VM, you can download [Azure NV6 template file](Azure_NV6_Template.zip) that include scripts to create the VM automatically.
+
 ## Step 2. Install Nvidia CUDA toolkik on the created VM
+Once the VM is created, then you need to install Nvidia CUDA to enable GPU support for the machine learning. This process can be done by following steps below. It can take 10 to 20 minutes to install Nvidia CUDA on the VM.
 
 ```
 $ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.1.168-1_amd64.deb
@@ -20,7 +28,7 @@ $ sudo apt-get install cuda
 ```
 
 ## Step 3. Install Anaconda 
-For this document, we used Anaconda 3 (Anaconda3-2018.12-Linux-x86_64)
+After the CUDA is installed, you can install Anaconda 3 to create Python virtual environments. For this document, we used Anaconda 3 (Anaconda3-2018.12-Linux-x86_64). Make sure you change 'your_user_name' to your user name on the VM. 
 
 ```
 $ wget https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
@@ -29,6 +37,7 @@ $ export PATH="/home/your_user_name/anaconda3/bin:$PATH"
 ```
 
 ## Step 4. Create Python virtual environment with Tensorflow-GPU and other packages
+After Anaconda 3 has installed, you can create Python virtual environment that can support Tensorflow GPU. 
 
 You can change the list of packages and the version of python as you need but tensorflow-gpu, scikit-learn, and scipy are needed to run the machine learning codes with support of the Tensorflow (GPU).
 
@@ -39,6 +48,9 @@ conda create -n tfgpu python=3.6 tensorflow-gpu=1.13.1 numpy=1.16.4 pandas matpl
 ```
 
 ## Step 5. Actiavet the created virtual environment and test if the Tensorflow is available
+After the virtual environment is created, you can activate the virtual environment and test the Tensorflow GPU by using following shell commands. 
+
+If the Tensorflow version is successfully printed out, then your VM is ready to run the machine learning codes with GPU support!
 
 ```
 $ conda activate tfgputest
@@ -51,6 +63,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 '1.13.1'
 >>> 
 ```
+The part of full logs from the VM is attached on the Appendix A. Please check that to compare with your steps in case you have any issues during setting up.
 
 ## Appendix A
 Entire log from the Step 2 to 5.
