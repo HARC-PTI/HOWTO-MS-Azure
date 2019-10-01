@@ -4,16 +4,16 @@ This how-to document shows creating an Azure VM that can run Tensorflow and Kera
 ## Step 1. Create GPU enabled virtual machine (VM) from Azure portal
 You need to create a VM first from Azure portal. You can click 'Create Resource' from the Azure portal.
 ![Create Resource Ubuntu 18.04](imgs/create_azure_resource.png)
-
+___
 Then, you can select VM size. This tutorial uses Azure NV6 Promo as VM which uses one Nvidia Tesla M4. You can change to any size as you want and as you need. The list of available GPU VMs are listed here (https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes-gpu). 
 ![Select NV6](imgs/select_nv6.png)
-
+___
 When you create the VM, make it sure you open SSH port (22) so that you can access using SSH after the VM is created.
 ![Open SSH port](imgs/open_ssh_port.png)
-
+___
 After selecting all other required options, you can create the VM. The hourly cost of using NV6 Promo VM can vary based on region and date. When I was creating this tutorial, it was 0.396 USD per hour.
 ![Create VM](imgs/create_vm.png)
-
+___
 If you want to use Azure template file to create the VM, you can download [Azure NV6 template file](Azure_NV6_Template.zip) that include scripts to create the VM automatically.
 
 ## Step 2. Install Nvidia CUDA toolkik on the created VM
